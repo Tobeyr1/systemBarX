@@ -3,6 +3,7 @@ package com.tobery.systembarx
 import android.app.Activity
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -60,6 +61,19 @@ object SystemBarXUtil {
     }
 
     /**
+     * monitor soft keyboard status
+     * @param activity Current page
+     * @param callback callback
+     */
+    fun getImeVisible(activity: Activity,callback: WindowsKeyboardCallback? = null){
+        ViewCompat.setOnApplyWindowInsetsListener(activity.window.decorView) { _, insets ->
+            val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
+            callback?.onKeyboardChanged(imeVisible)
+            insets
+        }
+    }
+
+    /**
      * change the statusBar visibility
      * @param activity Current page
      * @param isHide whether to hide the statusBar
@@ -90,4 +104,8 @@ object SystemBarXUtil {
     }
 
 
+
+}
+abstract class WindowsKeyboardCallback{
+    abstract fun onKeyboardChanged(show: Boolean)
 }
