@@ -1,6 +1,7 @@
 package com.tobery.systembarx
 
 import android.app.Activity
+import android.view.View
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -101,6 +102,15 @@ object SystemBarXUtil {
                 it.show(WindowInsetsCompat.Type.systemBars())
             }
         }
+    }
+
+    /**
+     * get navigationBar height
+     * @param view
+     */
+    fun getNavigationBarHeight(view: View): Int{
+        val insets = ViewCompat.getRootWindowInsets(view)
+        return insets?.getInsets(WindowInsetsCompat.Type.navigationBars())?.bottom ?: 0
     }
 
 
