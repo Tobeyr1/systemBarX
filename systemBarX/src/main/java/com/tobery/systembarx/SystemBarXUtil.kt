@@ -95,7 +95,7 @@ object SystemBarXUtil {
         ViewCompat.setOnApplyWindowInsetsListener(activity.window.decorView) { _, insets ->
             val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
             callback?.onKeyboardChanged(imeVisible)
-            insets
+            WindowInsetsCompat.CONSUMED
         }
     }
 
