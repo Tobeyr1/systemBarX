@@ -1,12 +1,12 @@
 package com.tobery.systembarx
 
 import android.app.Activity
+import android.content.res.Resources
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.*
 
 object SystemBarXUtil {
 
@@ -101,6 +101,50 @@ object SystemBarXUtil {
                 it.show(WindowInsetsCompat.Type.systemBars())
             }
         }
+    }
+
+    /**
+     * Fill the content to the status bar, keep the bottom system bar
+     * @param activity Current page
+     * @param view view  need to filling
+     * @param statusBarColor statusBar background color,default is transparent
+     */
+    fun setContentImmersion(view: View, activity: Activity,@ColorRes  statusBarColor: Int = android.R.color.transparent) {
+        setStatusBarColor(activity,statusBarColor)
+        WindowCompat.setDecorFitsSystemWindows(activity.window, false)
+        ViewCompat.setOnApplyWindowInsetsListener(view) { bottom, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            bottom.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                bottomMargin = insets.bottom
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
+
+    private fun getStatusBarHeight(resources: Resources): Int {
+        var result = 0
+        val resourceId: Int = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = resources.getDimensionPixelSize(resourceId)
+        }
+        return result
+    }
+
+    /**
+     * get statusBar height
+     * @param activity Current page
+     */
+    fun getStatusBarHeight(activity: Activity): Int {
+        var statusHeight = 0
+        ViewCompat.setOnApplyWindowInsetsListener(activity.window.decorView) { _, windowInsets ->
+            statusHeight = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            WindowInsetsCompat.CONSUMED
+        }
+        if (statusHeight == 0) {
+            statusHeight = getStatusBarHeight(activity.resources)
+        }
+        return statusHeight
     }
 
 
