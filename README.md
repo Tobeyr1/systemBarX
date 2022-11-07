@@ -28,8 +28,6 @@ dependencies {
 |--|--|
 |  setNavigationBarColor()| 设置顶部系统栏颜色黑白|
 |--|--|
-|  setChromeClient()(WebViewClient client)| 提高自定义WebViewClient方法 |
-|--|--|
 |  immersiveNavigationBar()| 是否隐藏底部系统栏|
 |--|--|
 |  getImeVisible()| 软键盘是否可见 |
