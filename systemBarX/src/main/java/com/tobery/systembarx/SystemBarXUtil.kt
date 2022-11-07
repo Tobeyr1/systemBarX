@@ -15,6 +15,7 @@ object SystemBarXUtil {
      * @param activity Current page
      * @param colorId  statusBar color
      */
+    @JvmStatic
     fun setStatusBarColor(activity: Activity,@ColorRes colorId: Int){
         activity.window.statusBarColor = ContextCompat.getColor(activity,colorId)
     }
@@ -24,6 +25,7 @@ object SystemBarXUtil {
      * @param activity Current page
      * @param darkText Whether make the statusBar icon and text to dark color
      */
+    @JvmStatic
     fun setStatusBarTextColor(activity: Activity,darkText: Boolean){
         WindowInsetsControllerCompat(activity.window,activity.window.decorView).isAppearanceLightStatusBars = darkText
     }
@@ -32,6 +34,7 @@ object SystemBarXUtil {
      * set page full screen
      * @param activity page that need to be changed
      */
+    @JvmStatic
     fun fitsSystemWindows(activity: Activity){
         WindowCompat.setDecorFitsSystemWindows(activity.window,false)
     }
@@ -41,6 +44,7 @@ object SystemBarXUtil {
      * @param activity
      * @param darkMode change the navigationBar foreground color model
      */
+    @JvmStatic
     fun setNavigationBarColor(activity: Activity,darkMode: Boolean){
         WindowInsetsControllerCompat(activity.window,activity.window.decorView).isAppearanceLightNavigationBars = darkMode
     }
@@ -50,6 +54,7 @@ object SystemBarXUtil {
      * @param activity Current page
      * @param isHide whether to hide the navigationBar
      */
+    @JvmStatic
     fun immersiveNavigationBar(activity: Activity,isHide: Boolean){
         WindowInsetsControllerCompat(activity.window,activity.window.decorView).let {
             if (isHide){
@@ -65,6 +70,7 @@ object SystemBarXUtil {
      * @param activity Current page
      * @param callback callback
      */
+    @JvmStatic
     fun getImeVisible(activity: Activity,callback: WindowsKeyboardCallback? = null){
         ViewCompat.setOnApplyWindowInsetsListener(activity.window.decorView) { _, insets ->
             val imeVisible = insets.isVisible(WindowInsetsCompat.Type.ime())
@@ -78,6 +84,7 @@ object SystemBarXUtil {
      * @param activity Current page
      * @param isHide whether to hide the statusBar
      */
+    @JvmStatic
     fun immersiveStatusBar(activity: Activity,isHide: Boolean){
         WindowInsetsControllerCompat(activity.window,activity.window.decorView).let {
             if (isHide){
@@ -93,6 +100,7 @@ object SystemBarXUtil {
      * @param activity Current page
      * @param isHide whether to hide the systemBar
      */
+    @JvmStatic
     fun immersiveSystemBars(activity: Activity,isHide: Boolean){
         WindowInsetsControllerCompat(activity.window,activity.window.decorView).let {
             if (isHide){
@@ -109,6 +117,7 @@ object SystemBarXUtil {
      * @param view view  need to filling
      * @param statusBarColor statusBar background color,default is transparent
      */
+    @JvmStatic
     fun setContentImmersion(view: View, activity: Activity,@ColorRes  statusBarColor: Int = android.R.color.transparent) {
         setStatusBarColor(activity,statusBarColor)
         WindowCompat.setDecorFitsSystemWindows(activity.window, false)
@@ -135,6 +144,7 @@ object SystemBarXUtil {
      * get statusBar height
      * @param activity Current page
      */
+    @JvmStatic
     fun getStatusBarHeight(activity: Activity): Int {
         var statusHeight = 0
         ViewCompat.setOnApplyWindowInsetsListener(activity.window.decorView) { _, windowInsets ->
@@ -145,6 +155,22 @@ object SystemBarXUtil {
             statusHeight = getStatusBarHeight(activity.resources)
         }
         return statusHeight
+    }
+
+    /**
+     * get navigationBar height
+     * @param resources
+     */
+    @JvmStatic
+    fun getNavigationBarHeight(resources: Resources): Int {
+        val rid: Int = resources.getIdentifier("config_showNavigationBar", "bool", "android")
+        return if (rid != 0) {
+            val resourceId: Int =
+                resources.getIdentifier("navigation_bar_height", "dimen", "android")
+            resources.getDimensionPixelSize(resourceId)
+        } else {
+            0
+        }
     }
 
 
