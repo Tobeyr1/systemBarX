@@ -26,7 +26,7 @@ dependencies {
 |--|--|
 |  fitsSystemWindows()| 页面全面屏 |
 |--|--|
-|  setNavigationBarColor()| 设置顶部系统栏颜色黑白|
+|  setNavigationBarColor()| 设置底部系统栏颜色黑白|
 |--|--|
 |  immersiveNavigationBar()| 是否隐藏底部系统栏|
 |--|--|
